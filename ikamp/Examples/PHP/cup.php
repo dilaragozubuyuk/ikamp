@@ -1,14 +1,12 @@
 <?php
-
-
 class Cup
 {
     private $amount;
-    public function getCup()
+    public function getCupAmount()
     {
         return $this->amount;
     }
-    public function setCup($amount)
+    public function setCupAmount($amount)
     {
         $this->amount = $amount;
     }
@@ -16,27 +14,25 @@ class Cup
 
 class CoffeeMachine
 {
-    public function cookCoffee(Cup $amount)
+    public function cookCoffee(Cup $cup)
     {
-        $amount->setCup(rand(0, 100));
-        return $amount;
+        $cup->setCupAmount(rand(0, 100));
+        return $cup;
     }
 }
 
-class Barista{
-
-    public function makemecoffee(Cup $cup, CoffeeMachine $coffee)
+class Barista
+{
+    public function makeMeCoffee(Cup $cup, CoffeeMachine $coffeeMachine)
     {
-        return $coffee->cookCoffee($cup);
+        return $coffeeMachine->cookCoffee($cup);
     }
 }
 
 Route::get('/', function () {
-
-  $cup = new Cup();
-  $coffee = new CoffeeMachine();
-  $deneme = new Barista();
-  $filledcup = $deneme->makemecoffee($cup, $coffee);
-  var_dump($filledcup);
-
+    $cup = new Cup();
+    $coffee = new CoffeeMachine();
+    $barista = new Barista();
+    $filledCup = $barista->makemecoffee($cup, $coffee);
+    print_r($filledCup);
 });
